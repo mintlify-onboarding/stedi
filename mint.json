@@ -1,0 +1,46 @@
+{
+    "name": "Stedi",
+    "logo": {
+      "light": "/logo/light.svg",
+      "dark": "/logo/dark.svg"
+    },
+    "favicon": "/favicon.png",
+    "colors": {
+      "primary": "#297A71",
+      "light": "#47AEA3",
+      "dark": "#297A71"
+    },
+    "topbarCtaButton": {
+      "name": "Start Building",
+      "url": "https://www.stedi.com/auth/sign-up"
+    },
+    "topbarLinks": [
+      {
+        "name": "Book a demo ",
+        "url": "https://www.stedi.com/book-demo"
+      }
+    ],
+    "anchors": [
+      {
+        "name": "Changelog",
+        "icon": "megaphone",
+        "url": "changelog"
+      },
+      {
+        "name": "Accounts and Billing",
+        "icon": "file-invoice-dollar",
+        "url": "accounts"
+      }
+    ],
+    "navigation": [
+      {
+        "group": "",
+        "pages": [""]
+      }
+    ],
+    "footerSocials":
+      {
+          "twitter": "https://twitter.com/stedi",
+          "github": "https://github.com/stedi"
+      }
+  }
