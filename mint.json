@@ -10,6 +10,9 @@
       "light": "#47AEA3",
       "dark": "#297A71"
     },
+    "api": {
+      "baseUrl": "https://apikeys.us.stedi.com/2022-01-19"
+    },
     "topbarCtaButton": {
       "name": "Start Building",
       "url": "https://www.stedi.com/auth/sign-up"
@@ -70,7 +73,8 @@
       {
         "group": "API Reference",
         "pages": [
-          "api-reference/index"
+          "api-reference/index",
+          "api-reference/delete-api-key"
         ]
       }
     ],
