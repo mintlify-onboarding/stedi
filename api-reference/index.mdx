@@ -1,8 +1,8 @@
 ---
 title: API Reference
-slug: /api
-description: |
-  Stedi API Reference
+sidebarTitle: "Overview"
+slug: /api-reference
+description: Stedi API Reference
 ---
 
 ## Integrating with Stedi
@@ -11,14 +11,14 @@ Virtually every aspect of Stedi is accessible via API, allowing you to programma
 
 In practice, most integrations only need to implement two integration points:
 
-- A method in your system for calling the [generate EDI](/docs/core/generating-edi#http-api) endpoint when you need to send a transaction **to** a trading partner
-- A method in your system for receiving [destination webhooks](/docs/events/destinations) from Stedi when you receive a transaction **from** a trading partner, or when an exception occurs.
+- A method in your system for calling the [generate EDI](/core/generating-edi#http-api) endpoint when you need to send a transaction **to** a trading partner
+- A method in your system for receiving [destination webhooks](/events/destinations) from Stedi when you receive a transaction **from** a trading partner, or when an exception occurs.
 
 However, if you need to automate a more complex workflow – for example, if you're using Stedi to build native EDI functionality into a SaaS platform – you can use the full suite of APIs to create and manage trading partners and more.
 
 ## Authentication
 
-In order to use any Stedi API, you need an API key. You pass the API key in the `Authorization` header of every request and it determines which resources you can access. You need to [create your first key using the UI](/docs/accounts-and-billing/authentication#creating-an-api-key). Once the first key has been created, you also have the option to use the [API Keys API](/docs/api/apikeys) to manage your keys.
+In order to use any Stedi API, you need an API key. You pass the API key in the `Authorization` header of every request and it determines which resources you can access. You need to [create your first key using the UI](/accounts-and-billing/authentication#creating-an-api-key). Once the first key has been created, you also have the option to use the [API Keys API](/api/apikeys) to manage your keys.
 
 ### API key access
 

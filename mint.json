@@ -66,6 +66,12 @@
             ]
           }
         ]
+      },
+      {
+        "group": "API Reference",
+        "pages": [
+          "api-reference/index"
+        ]
       }
     ],
     "footerSocials":

@@ -3,8 +3,7 @@ title: Authentication
 slug: /accounts-and-billing/authentication
 tags:
   - gettingStarted
-description: |
-  How to create an API key and make authenticated API calls.
+description: How to create an API key and make authenticated API calls.
 ---
 
 Requests to Stedi APIs are authenticated using a secret token called an _API key_. Each API key belongs to a single account and each account can have multiple API keys.
@@ -17,11 +16,15 @@ You must provide a name for your API key. It can be anything you want, but typic
 
 Your full API key will be displayed upon creation. This is the only time you're presented with the full API key, so be sure to copy the key and store it in a secure location.
 
-> **Remember**: Your API key should be kept secret. Never share it or commit it to source control.
+<Tip>
+**Remember**: 
+
+Your API key should be kept secret. Never share it or commit it to source control.
+</Tip>
 
 ## Making authenticated API calls
 
-When making an HTTP request to a Stedi API, pass your API key in the Authorization header, prefixed by the word `Key`. The following example shows a cURL request to [generate EDI](/docs/core/parsing-and-generating-edi#stedi-http-api). The transactions array is abbreviated for readability.
+When making an HTTP request to a Stedi API, pass your API key in the Authorization header, prefixed by the word `Key`. The following example shows a cURL request to [generate EDI](/core/parsing-and-generating-edi#stedi-http-api). The transactions array is abbreviated for readability.
 
 ```bash
 curl --location 'https://partners.us.stedi.com/2022-01-01/x12/partnerships/this-is-me_another-merchant/generate-edi' \
