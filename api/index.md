@@ -1,0 +1,74 @@
+---
+title: API Reference
+slug: /api
+description: |
+  Stedi API Reference
+---
+
+## Integrating with Stedi
+
+Virtually every aspect of Stedi is accessible via API, allowing you to programmatically accomplish almost anything you can do in the UI. This includes setup and configuration of trading partners, connections, and other settings, as well as sending and receiving EDI.
+
+In practice, most integrations only need to implement two integration points:
+
+- A method in your system for calling the [generate EDI](/docs/core/generating-edi#http-api) endpoint when you need to send a transaction **to** a trading partner
+- A method in your system for receiving [destination webhooks](/docs/events/destinations) from Stedi when you receive a transaction **from** a trading partner, or when an exception occurs.
+
+However, if you need to automate a more complex workflow – for example, if you're using Stedi to build native EDI functionality into a SaaS platform – you can use the full suite of APIs to create and manage trading partners and more.
+
+## Authentication
+
+In order to use any Stedi API, you need an API key. You pass the API key in the `Authorization` header of every request and it determines which resources you can access. You need to [create your first key using the UI](/docs/accounts-and-billing/authentication#creating-an-api-key). Once the first key has been created, you also have the option to use the [API Keys API](/docs/api/apikeys) to manage your keys.
+
+### API key access
+
+An API key grants access to all resources belonging to an account.
+
+### Passing the API key
+
+Every request you send needs to include an API key. You pass the API key in the `Authorization` key, prefixed with the word `Key`. For example, if your API key is `Jclcke.ZHqS3demo4dS16XZ1KeyBY7` and you want to retrieve a list of all your API keys, you make the following request.
+
+```http
+GET https://apikeys.us.stedi.com/2022-01-19/api_keys HTTP/1.1
+Authorization: Key Jclcke.ZHqS3demo4dS16XZ1KeyBY7
+```
+
+## Pagination
+
+When you request a list of resources, the response may contain a subset of available responses. In that case, the response will include a key called `next_page_token`. To retrieve the next page of results, repeat the request, but add the query parameter `page_token` and give it the value you received in the response.
+
+For example, say you retrieve a list of API keys.
+
+```http
+GET https://apikeys.us.stedi.com/2022-01-19/api_keys HTTP/1.1
+Authorization: Key Jclcke.ZHqS3demo4dS16XZ1KeyBY7
+```
+
+The result contains a list of keys and a token for the next page.
+
+```javascript
+{
+  "results": [ ... ],
+  "next_page_token": "2t7M75ZN1w4OnYFKKT0SUkT95w_ULzPR"
+}
+```
+
+You can then request the next page of results like this:
+
+```http
+GET https://apikeys.us.stedi.com/2022-01-19/api_keys?page_token=2t7M75ZN1w4OnYFKKT0SUkT95w_ULzPR HTTP/1.1
+Authorization: Key Jclcke.ZHqS3demo4dS16XZ1KeyBY7
+```
+
+As long as the response contains `next_page_token`, there are more results available. If a response doesn&#39;t contain `next_page_token`, then you&#39;re on the last page.
+
+## Error responses
+
+If you make a request that the API can&#39;t fulfill, the response code will be in the 4xx range and the response body will contain the following two fields.
+
+- `error` – A code indicating what went wrong.
+- `message` – A human-readable message describing what went wrong.
+
+You can use `error` to write code that handles the error and you can use `message` when you&#39;re debugging the problem yourself. If a response needs to report multiple errors, it will include an array called `errors`, but even in that case, the `error` and `message` fields will be available at top level.
+
+It&#39;s possible for a response to contain both a result and an error. This happens when something went wrong, but the API is able to give a partial or best-effort result.

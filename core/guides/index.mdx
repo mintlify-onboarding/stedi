@@ -1,0 +1,53 @@
+---
+title: Stedi Guides - Machine-readable EDI specifications
+sidebarTitle: Guides
+slug: core/guides
+description: "EDI specifications on your terms. No more dealing with out-of-date PDFs; turn static documentation into a tool for programmatic validation and translation. Define your trading partner's EDI requirements or your own specifications as Guides using Stedi's no-code Guide Builder."
+hidden: false
+searchable: true
+tags: "product"
+product: guides
+# Set to `general_availability` explicitly, otherwise it would default to the lifecycle defined in the Guides
+# OpenAPI spec (which we don't set to GA because we don't want the API to be public yet).
+lifecycle: general_availability
+childPageOrder:
+  - core/guides/what-is-a-stedi-guide
+  - core/guides/demo-video
+  - core/guides/manage-guides
+  - core/guides/customize-guides
+  - core/guides/public-guides
+  - core/guides/create-a-mapping-from-a-stedi-guide
+  - core/guides/data-and-privacy
+---
+
+Stedi Guides define EDI requirements between you and your trading partners.
+
+Unlike traditional PDF implementation guides, a Stedi guide captures EDI requirements in a machine-readable format that can be shared as an interactive web page. The embedded EDI Inspector lets you instantly validate test files against the guide's specifications in your web browser.
+
+Guides can be used in three ways:
+
+- By [Core](/core), to validate, translate, and generate EDI documents.
+- As a standalone tool to share EDI requirements and to allow trading partners to validate EDI files before sending them to you, saving weeks of back and forth during onboarding.
+- To create [mappings](/cloud/mappings) that transform EDI data into the shape you need for your internal systems.
+
+## Guides with Core
+
+Most users will never need to build a guide from scratch. Stedi has thousands of pre-built guides available in the [Stedi Network](https://www.stedi.com/edi/network) catalog. Once you locate the correct guide in the catalog, you can click the **Import guide into your account** button to create your copy of the guide and use it with Core by adding it to a partnership's [transaction settings](/core/configuration/transaction-settings#using-guides).
+
+If you can't find your partner or guide listed in the catalog, you can [submit a request](https://www.stedi.com/products/guides/accelerator) and we'll build it for you for free within 1-2 business days using our best practices.
+
+If you have experience building EDI guides already and you want to get started immediately – or if you want to see the power and flexibility of Stedi guides for yourself – you can create a guide using the self-service guide builder.
+
+## Guides as a standalone tool
+
+Any guide can be [made public](/core/guides/public-guides), which creates a publicly-resolvable URL that can be shared with trading partners or added to your website.
+
+The traditional EDI validation process can take a long time. Typically, partners send a test file for review, wait for an email describing any errors, fix the errors, and then repeat this cycle. Instead, partners can use each Stedi guide's built-in validation to immediately identify and fix multiple errors, reducing the amount of back-and-forth required for onboarding.
+
+Try it on the Amazon's [X12 856 Ship Notice](https://www.stedi.com/app/guides/view/amazon/direct-fulfillment-ship-noticemanifest/01GWHTBZ4226RFRMT0S60D8VSA/inspector?sample=01GWHTC06DMSNVNRBYE9WHZ518) to see how it works.
+
+### Guides and mappings
+
+Typically, data from partners is not in the exact format you need. For example, you may receive an invoice with the billing address split into street address, ZIP code, and city, but your internal system needs it in a single field. As part of your EDI processing pipeline, you must transform the input data shape into the desired shape for your internal systems. This process is called mapping.
+
+[Mappings](/cloud/mappings) enable you to transform JSON data from one shape to another. Guides are integrated into Mappings, so you can use a guide as the source or target of any mapping. Visit [create mappings from guides](/docs/core/guides/create-a-mapping-from-a-stedi-guide) for details.

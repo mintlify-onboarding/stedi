@@ -32,10 +32,40 @@
         "url": "accounts"
       }
     ],
+    "tabs": [
+      {
+          "name": "API Reference",
+          "url": "api-reference"
+      }
+    ],
     "navigation": [
       {
-        "group": "",
-        "pages": [""]
+        "group": "Core - EDI Hub",
+        "pages": [
+          "core/index",
+          {
+            "group": "Configure Trading Partners",
+            "pages": [
+              "core/configuration/index",
+              "core/configuration/profiles-and-partnerships",
+              "core/configuration/connections",
+              "core/configuration/transaction-settings"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "core/guides/index",
+              "core/guides/what-is-a-stedi-guide",
+              "core/guides/demo-build-guide-from-pdf",
+              "core/guides/manage-guides",
+              "core/guides/customize-guides",
+              "core/guides/public-guides",
+              "core/guides/create-a-mapping-from-a-guide",
+              "core/guides/data-and-privacy"
+            ]
+          }
+        ]
       }
     ],
     "footerSocials":

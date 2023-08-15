@@ -1,0 +1,255 @@
+---
+title: Customize Stedi Guides
+sidebarTitle: "Customize Guides"
+slug: core/guides/customize-guides
+description: "Use the Stedi guide builder to customize guides for any transaction set."
+hidden: false
+searchable: true
+---
+
+There are two ways of getting started with Stedi guides:
+
+- **Import a prebuilt guide from Stedi's Network (Recommended).** Most users will never need to build a guide from scratch. Stedi has thousands of pre-built guides available in the [Stedi Network](https://www.stedi.com/edi/network) catalog. Once you locate the correct guide in the catalog, you can click the **Import guide into your account** button to create your copy of the guide and use it with Core by adding it to a partnership's [transaction settings](/core/configuration/transaction-settings#using-guides).
+
+If you can't find your partner or guide listed in the catalog, you can [submit a request](https://www.stedi.com/products/guides/accelerator) and we'll build it for you for free within 1-2 business days using our best practices.
+
+- **Create a guide from scratch (EDI experts).** If you have experience building EDI guides already and you want to get started immediately – or if you want to see the power and flexibility of Stedi guides for yourself – you can create a guide using the self-service guide builder.
+
+<Tip>
+**New to EDI?** 
+
+We recommend reviewing our [EDI Essentials](https://www.stedi.com/edi/essentials) documentation. It explains the components of an EDI document's structure, including the various types of and uses for segments and elements.
+</Tip>
+
+## Segments and Loops
+
+By default, the guide builder only lists the [segments](https://www.stedi.com/edi/essentials/x12/segments) required in the base transaction set. You can add additional segments to your custom guide.
+
+To add additional segments:
+
+1. Click either **Heading**, **Detail**, or **Summary** in the left sidebar to view a list of the possible segments for that section.
+1. Click the box next to each segment to change whether it is included in the transaction set.
+   - R: Required. Some implementation guides use M instead (for Mandatory).
+   - O: Optional.
+   - N: Not used by this implementation guide.
+
+### Hierarchical Levels
+
+An `HL` segment identifies dependencies between hierarchically related data segments. For example, there may be hierarchical relationships between components of packing information in an [856 Ship Notice](https://www.stedi.com/edi/x12/transaction-set/856).
+
+#### Example use case
+
+Consider the following hierarchical information about customer grocery orders.
+
+```
+ORD02208
+  ├── Package
+      ├── Milk
+```
+
+The following EDI example shows the HL loops that define this information.
+
+```
+HL*1**O*1~
+PRF*ORD02208***20220815~
+HL*2*1*P*1~
+TD1*CTN*1~
+REF*CN*1B487311569~
+HL*3*2*I*0~
+LIN*D002*BN*75206331361~
+SN1**1*EA~
+PID*F*TRN***MILK~
+```
+
+The first `HL` segment defines the order at the highest level of the hierarchy. It has four elements.
+
+| Element | Name             | Description                                               |
+| ------- | ---------------- | --------------------------------------------------------- |
+| `HL-01` | ID Number        | Identifies this entry of the HL loop.                     |
+| `HL-02` | Parent ID Number | The ID Number of the order that this package relates to.  |
+| `HL-03` | Level Code       | Specifies the type of the entry. In this case, a package. |
+| `HL-04` | Child Code       | Specifies whether this entry has children. `1` means yes. |
+
+Then, the document continues:
+
+- The `PRF` segment contains information about the order itself, including the order number `ORD02208`.
+- The `HL` segment repeats when the order becomes a package, and the package itself is described by the segments `TD1` and `REF`.
+- the `HL` segment repeats once more when the order contains an item, and the item itself is described by the segments `LIN`, `SN1`, and `PID`.
+
+#### Add an HL loop to your guide
+
+X12 does not enforce a specific hierarchy in your transaction set. You can add `HL` loops to your Stedi guide to define the hierarchical relationships you need for your use case.
+
+You must add `HL` loops to your guides one level at a time. For example, you would create three nested `HL` segments to capture the following hierarchy.
+
+```
+Order
+  ├── Package
+      ├── Item
+```
+
+To add an `HL` loop for this scenario:
+
+1. Click the **DETAIL** heading in the left sidebar.
+1. Click the box next to the HL Loop to change its status from **Not Used**.
+1. Choose a code to describe the type of entry for this level of the hierarchy. In this example, you would choose `O` for order.
+1. Click **Save** to add the HL segment under **DETAIL**.
+1. Click the HL Loop, scroll to the list of HL segments.
+1. Click the box next to **HL Loop** to add it and select a code. In this example, you'd select `P` for package.
+1. Repeat this process for the final hierarchy level describing the item.
+
+#### HL Loop Variations
+
+Sometimes, an implementation guide allows for variations of a hierarchy. For example, if a ship notice only has one package, you can leave out the package information.
+
+You can convey this information to your trading partners by creating [variants](#variants) within a single Stedi guide or by creating a separate Stedi guide for each variant.
+
+### Variants
+
+Loops and segments allow you to create variants. A variant is a specific version of a loop or a segment that is used in a particular context.
+
+To create a variant, go to the segment and click **Duplicate this node to add variant**.
+
+#### Discriminants
+
+Variants must be uniquely identifiable from each other. To do this, you must add a discriminant that differentiates each variant. The discriminant tells the guide's EDI Inspector and the EDI Translate APIs when one variant should be used over the other for validating, generating, or parsing EDI documents.
+
+For example, you could specify that partners include two N1 Name loops in each 850 purchase order: one for the ship to contact and another for the bill to party. In this case you'd add the Entity Identifier Code as the discriminant for N1 Name loops. For the `bill to` variant, you'd use the `BT` qualifier, and for the ship to variant, you'd use the `ST` qualifier.
+
+The type of discriminant depends on whether the loop is hierarchical:
+
+- For hierarchical loops (HL loops), set a unique HL Level Code (HL-03) on each variant.
+- For non-hierarchical loops and segments, set a unique allowed value on each variant.
+
+You do not need to place the discriminant on the first element of the first segment. You can place it in any element of the first segment. The only requirement is that the discriminant must be unique amongst all variants.
+
+## Elements
+
+By default, the guide builder only includes the [elements](https://www.stedi.com/edi/essentials/x12/elements) for each segment that are required in the base transaction set. You can add additional elements to your custom guide.
+
+To add or remove elements from a segment:
+
+1. Click the segment's name and scroll to find the list of possible elements.
+1. Click the box next to each element to change whether it is included in the segment.
+
+<Tip>
+Some PDF guides have elements marked as conditional (`X`). These have special rules associated with them. At this step, you should mark them as optional.
+</Tip>
+
+### Conditional elements
+
+Some elements come with conditions that tell you when they should be included. For example, if you specify a date in the [date/time-segment](https://www.stedi.com/edi/x12/segment/G62), you must also specify a date qualifier. Similarly, if you specify a time, you must also specify a time qualifier. You can specify either a date or a time, but you must include at least one.
+
+Every condition begins with a letter that specifies the type of condition, followed by one or more element numbers to which the condition applies. For example, `R0103` means that you must specify at least one of the elements `01` or `03`.
+
+It’s possible to specify more than two elements, so `R010304` would mean that you must specify at least one of the elements `01`, `03`, or `04`.
+
+| **Letter** | **Name**         | **Condition**                                                                             |
+| ---------- | ---------------- | ----------------------------------------------------------------------------------------- |
+| C          | Condition        | If the first element is present, then all the other elements must be present.             |
+| E          | Exclusive        | Only one of the elements may be present.                                                  |
+| L          | List conditional | If the first element is present, then at least one of the other elements must be present. |
+| P          | Paired           | If one of the elements is present, then all elements must be present.                     |
+| R          | Required         | At least one of the elements must be present.                                             |
+
+#### Add Conditions
+
+You must specify conditions for elements on the segment level. To add conditions:
+
+1. Click the segment name in the left sidebar.
+1. Scroll to the **Conditions** section in the center column and click **+ Add condition**.
+
+<Tip>
+**EDI Reference:** 
+
+Learn more about [X12 EDI relational conditions](https://www.stedi.com/edi/essentials/x12/elements/relational-conditions) in our EDI Reference documentation.
+</Tip>
+
+### Data type and size
+
+Every element has a specific data type and size. Your guide automatically copies the data type and size settings from the base specification for the transaction set. Implementation guides typically use the same data type and size as the base specification, so we recommend leaving the default settings as is, unless you have a specific reason for updating them.
+
+To edit the element's data type or size, click the element name in the sidebar and open the **Advanced** menu in the center column.
+
+### Allowed values
+
+Many elements have a value based on a standardized list of codes. For example, the date/time segment has the date qualifier segment, which indicates the type of date to include. The base specifiation lists well over a hundred possible codes. The implementation guide should list which ones are valid for you.
+
+To update the list of accepted codes for an element:
+
+1. Click the element's name in the left sidebar.
+1. Scroll to the **Allowed values** section in the center column and click **Add code value**.
+1. Add one or more codes that are appropriate for your use cases.
+
+## Delimiters
+
+Delimiters separate the segments and elements in an EDI file.
+
+When you create a guide, you can set delimiters in the _Overview_ pane in the top left. EDI Translate uses the delimiters you set in the guide when [writing EDI](/legacy/edi-translate/translate-json-to-x12-edi#delimiters).
+As a default, Stedi recommends the following choices:
+
+- Element: `*`
+- Segment: `~`
+- Repetition: `^`
+- Component Element: `>`
+
+Other common choices for the component element include `:`, `<`, and `\`.
+
+Choosing delimiters for reading and writing EDI depends on your and your trading partner's data requirements. Clearly communicate the character restrictions with the business groups that are sending the data. You should also agree on substitution characters when a delimiter appears in the data. For example, if your delimiter is `*` and you know incoming data contains mathematical expressions, you could agree to use `x` instead of `*` for relevant expressions (`4x2` instead of `4*2`).
+
+### Writing EDI
+
+Stedi will parse your data incorrectly if the delimiter you choose appears elsewhere in your data. For example, if your input uses mathematical symbols, then we recommend choosing `:` or `\` instead of `>` and `<` as delimiters. Likewise, you may want to avoid `:` if your text data includes time values in `HH:MM:SS` format. We recommend considering the following guidance from the X12 documentation.
+
+The following characters usually occur in data. They should not be used as delimiters:
+
+- Upper (`A-Z`) and lowercase (`a-z`) letters
+- Digits (`0-9`)
+- Blank space (` `)
+- Minus sign (`-`)
+
+The following characters often appear in data. Use as delimiter characters with caution.
+
+`! " & ' ( ) * + , - . / : ; ? =`
+
+The following characters sometimes appear in data. Use as delimiter characters with caution.
+
+<code>% @ [ ] \_ { } \ | < > ~ ^ `</code>
+
+### Reading EDI
+
+We recommend allowing your trading partners to use any type of delimiter when sending data. They may have different data requirements and have likely already worked to ensure there are no conflicts with EDI delimiters.
+
+Stedi automatically infers the delimiters from incoming EDI files. Visit the [EDI Translate documentation](/legacy/edi-translate/translate-x12-edi-to-json#delimiters) for details.
+
+X12 provides this guidance about character frequency.
+
+The following characters usually occur in data. They should not be used as delimiters:
+
+- Upper (`A-Z`) and lowercase (`a-z`) letters
+- Digits (`0-9`)
+- Blank space (` `)
+- Minus sign (`-`)
+
+The following characters often appear in data. Use as delimiter characters with caution.
+
+`! " & ' ( ) * + , - . / : ; ? =`
+
+The following characters sometimes appear in data. Use as delimiter characters with caution.
+
+<code>% @ [ ] \_ { } \ | < > ~ ^ `</code>
+
+## Sample EDI files for public guides
+
+You can include multiple EDI sample files in Stedi guides to help new trading partners understand valid usage patterns faster and reduce onboarding time. The guide builder automatically validates each sample against the guide's specifications, so you can fix any errors before you provide them to trading partners.
+
+You can also add a description to each sample that gives trading partners even more context about the intended use cases. The description appears at the top of the guide's EDI Inspector.
+
+To add samples:
+
+1. Click **Overview** in the left sidebar and scroll to the **EDI Samples** section in the center column.
+1. In the **About** tab, add a **Name** and an optional **Description**.
+1. in the **EDI Content** tab, paste a sample file or customize an autogenerated sample based on the guide's specifications.
+1. Click **Create sample**.
+
+EDI samples attached to the guide are available on your [public guide's](public-guides) interactive web page and are included when partners download the guide as a PDF.

@@ -1,0 +1,30 @@
+---
+title: Transaction Settings
+sidebarTitle: Transaction Settings
+slug: core/configuration/transaction-settings
+description: Within each [partnership](profiles-and-partnerships), you can specify the EDI transaction sets that you plan to exchange with trading partners. For example, if you are a brand, you may want to receive inbound 850 Purchase Orders from a retailer, and send outbound 810 Invoices to them. You do this by creating transaction settings within the partnership.
+---
+
+## Create transaction settings
+
+To create a transaction setting:
+
+1. Go to the **[Trading Partners](https://www.stedi.com/app/core/partnerships)** page.
+2. Click the partnership.
+3. Click **Create inbound transaction setting** to configure a transaction set you plan to receive from your trading partner, or **Create outbound transaction setting** to configure a transaction set you plan to send to your trading partner.
+4. Choose a validation method:
+    - (Recommended) Select the **Guide** to use for validation. With this option, Stedi validates the transaction against your or your partner's EDI specification.
+        - Open the [Stedi Network](https://www.stedi.com/edi/catalog) in a new tab.
+        - Locate the trading partner and guide.
+            - If you can't find your partner or guide listed in the catalog, [submit a request](https://www.stedi.com/products/guides/accelerator) and we'll build it for you for free within 1-2 business days using our best practices.
+            - If you have experience building EDI guides already and you want to get started immediately (or you want to see the power and flexibility of Stedi guides for yourself), you can [create a guide](../guides) using the self-service guide builder.
+    - (Alternative) **Translate using the base X12 specification.** With this option, Stedi validates the  transaction against the generic X12 specification. This option is useful for testing inbound flows when your partner hasn't yet provided a guide. It should not be used for outbound flows except in rare, advanced use cases.
+        - Select the X12 **Release** and **Transaction set**. The release is present in the `GS` segment of every EDI file, and also should be specified in your partner’s documentation. The transaction set is the EDI transaction you are receiving from your partner.
+5. (Outbound only): Stedi will automatically suggest the default **Application IDs** that were assigned to the local and partner profiles. If necessary, you can override these values. As an example, some trading partners may assign a specific `GS` ID to you during the onboarding process. Since this `GS` ID is used only for this partnership, you would not want to put it in your local profile, but you can override the default value here.
+6. (Outbound only) Specify the **Connection**. Generated EDI files will be sent to this connection. If no connection is specified, outbound EDI files cannot be created.
+    - (SFTP and Bucket connections only) For SFTP and bucket connections, you can optionally add a subdirectory that will be used for this transaction set only. As an example, your trading partner may require that you place all 810 Invoices in an `/810` subdirectory. We don't recommend specifying a subdirectory unless your trading partner has instructed you to do so.
+7. Click **Create**.
+
+Once an inbound transaction setting has been created, any matching inbound EDI file received over a partnership's configured [connection](connections) will be processed according to the specified settings.
+
+Once an outbound transaction setting has been created and a connection has been assigned, it can be used to [generate EDI](../generating-edi) and deliver to your trading partner.

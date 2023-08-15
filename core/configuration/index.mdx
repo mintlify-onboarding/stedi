@@ -1,0 +1,28 @@
+---
+title: Configure Trading Partners
+sidebarTitle: Overview
+slug: core/configuration
+product: core
+description: "Configure Stedi Core for new trading partners by creating profiles, partnerships, connections, and transaction settings."
+searchable: true
+hidden: false
+lifecycle: general_availability
+childPageOrder:
+  - core/configuration/profiles-and-partnerships
+  - core/configuration/connections
+  - core/configuration/transaction-settings
+---
+
+To set up a new trading partner, you'll need to configure the following settings:
+
+<Card title="Partnership" icon="handshake" href="/core/configuration/profiles-and-partnerships">
+  Partnerships describe all aspects of the EDI relationship between you and your partner, including which transaction sets you plan to exchange and other important information for processing.
+</Card>
+<Card title="Connections" icon="arrow-right-arrow-left" href="/core/configuration/connections">
+  Within a partnership, you can define SFTP/FTP/FTPS and AS2 connections to exchange data with partners.
+</Card>
+<Card title="Transaction settings" icon="gear" href="/core/configuration/transaction-settings">
+  Within a partnership, you can specify the inbound and outbound transaction sets you plan to exchange with your trading partner. As part of this process, you'll choose which EDI specifications to use to validate the data.
+</Card>
+
+Once you have completed this configuration, you can begin [parsing inbound EDI](/core/parsing-edi) and [generate outbound EDI](/core/generating-edi).

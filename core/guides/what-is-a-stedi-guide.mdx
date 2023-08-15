@@ -1,0 +1,59 @@
+---
+title: What is a Stedi Guide?
+slug: core/guides/what-is-a-stedi-guide
+description: "Stedi guides display EDI specifications as interactive web pages with built-in validation. Guides are machine-readable, so you can use them to generate EDI according to specific partner requirements."
+hidden: false
+searchable: true
+childPageOrder:
+  - guides/create-guides/delimiters
+  - guides/create-guides/create-stedi-guides
+---
+
+Stedi guides are a machine-readable format for traditional EDI implementation guides.
+
+This page explains why implementation guides are required for EDI integrations and how Stedi guides differ from traditional guide formats.
+
+## EDI implementation guides
+
+For each trading partner relationship, you and your trading partner must first agree on the exact format for each transaction type you plan to exchange. In practice, the larger trading partner typically dictates a format that the other trading partner must follow.
+
+These requirements are defined in what the EDI industry calls an implementation guide, also known as a companion guide, EDI reference guide, or just a guide. Implementation guides are typically exchanged in a static format, like PDF, CSV, or even Word document files.
+
+An implementation guide is needed for each transaction type. For example, you need an implementation guide for a purchase order and a separate guide for an invoice. An implementation guide is similar to a schema definition, with a few peculiarities specific to EDI.
+
+**Most users will never need to build a guide from scratch.** Stedi has thousands of pre-built guides available in the [Stedi Network](https://www.stedi.com/edi/network) catalog. Once you locate the correct guide in the catalog, you can click the **Import guide into your account** button to create your copy of the guide and use it with Core by adding it to a partnership's [transaction settings](/core/configuration/transaction-settings#using-guides). If you need to make changes to the guide, you can either [customize the guide](customize-guides) or [reach out to us](https://www.stedi.com/contact) and we'd be happy to help.
+
+If you can't find your partner or guide listed in the catalog, you can [submit a request](https://www.stedi.com/products/guides/accelerator) and we'll build it for you for free within 1-2 business days using our best practices.
+
+If you have experience building EDI guides already and you want to get started immediately – or if you want to see the power and flexibility of Stedi guides for yourself – you can create a guide using the self-service guide builder.
+
+More details for experienced EDI users are included below.
+
+## Base specifications
+
+All EDI implementation guides are customized versions of a base specification.
+
+There are several EDI standards that provide base specifications. The most common are X12 and EDIFACT. The [EDI Reference](https://www.stedi.com/edi) documentation contains a full list of base specifications for each standard.
+
+- [X12 transaction sets](https://www.stedi.com/edi/x12)
+- [EDIFACT transaction sets](https://www.stedi.com/edi/edifact)
+
+A base specification is designed by a standard body to cover all possible use cases for a given transaction. For example, the base specification for ship notices contains fields for every type of ship notice you could ever encounter.
+
+Base specifications are far too generic for day-to-day use. Instead, you and your trading partner must agree on what that transaction set should contain and then adjust the base specification accordingly. The result is an implementation guide, which contains only a subset of [segments](https://www.stedi.com/edi/essentials/x12/segments) from the base specification.
+
+Implementation guides can have other differences from the base specification as well. For example, some segments that are optional in the base specification may be marked as mandatory in the implementation guide.
+
+Each trading partner has their own implementation guide for each type of transaction. For example, [Lowe's](https://www.stedi.com/app/guides/view/lowes/purchase-order-acknowledgment/01GV5JBZ5GEHVS18622CHVBKZG), [Walmart](https://www.stedi.com/app/guides/view/walmart-edi/purchase-order-acknowledgment/01GNZA51CHFJJD9Y75GSSCXHHW), and [JCPenney](https://www.stedi.com/app/guides/view/jcpenney/purchase-order-acknowledgment/01GV5KNNM3GAZHCEH5ZZ84XKTQ) all have separate implementation guides for the X12 855 Purchase Order.
+
+## Validation
+
+Implementation guides include information like expected fields, data types and sizes, and which fields are required. You can use these details to validate incoming and outgoing EDI documents.
+
+## Stedi guides vs. standard guides
+
+Standard implementation guides are typically in a static format, like PDF, CSV, or even Word document files. In contrast, Stedi guides display EDI requirements as interactive web pages with built-in validation.
+
+Stedi guides are also machine-readable, so Core can use them to read and write EDI documents according to each partner's EDI requirements. Visit [transaction settings](/core/configuration/transaction-settings) for details.
+
+Visit the [Stedi Network](https://www.stedi.com/edi/network) to browse a directory our most-requested guides. You can import any guide into Core for free and use it in your integrations.

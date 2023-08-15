@@ -1,0 +1,155 @@
+---
+title: Partnerships
+sidebarTitle: Partnerships
+slug: core/configuration/profiles-and-partnerships
+description: Configure trading partners in Stedi Core.
+---
+
+The first step to adding a trading partner is to create two profiles and a partnership that links them together.
+
+## Profiles and Partnerships
+
+Profiles contain the basic information required to construct a valid EDI file. Generally, each profile represents a unique business entity. For example, if you are a brand, you would have a profile for your brand and a profile for each of your retailers.
+
+Partnerships are relationships between two profiles. Partnerships describe all aspects of the EDI relationship between two profiles, such as which transaction sets they will exchange and other important information for processing EDI files.
+
+## Create profiles and partnerships
+
+Profiles and partnerships can be created quickly from within the [trading partners page](https://www.stedi.com/app/core/partnerships). They can be created [manually](#create-manually) using information you collect from your trading partner during the setup process, or [automatically](#auto-configure-from-edi-files) if you happen to have sample files from your trading partner or an existing EDI system.
+
+### Types of profiles
+
+There are two types of profiles on Stedi: A **Local** profile is used for your company (or a company you represent) and a **Partner** profile is used for the company with which you're doing business. Typically, you will create a single Local profile for your company and a single Partner profile for each of your trading partners. If you're using Stedi to represent multiple companies (for example, if you have multiple brands that you own, or if you're a SaaS provider using Stedi to power your product's EDI functionality), you would use multiple Local profiles – one for each of the companies you represent.
+
+In addition to containing important information for processing EDI, profiles also allow Core to determine the direction of EDI files:
+
+- Core labels EDI files as **inbound** when the **Local** profile is the **receiver**.
+- Core labels EDI files as **outbound** when the **Local** profile is the **sender**.
+
+### Create manually
+
+Most of the time, you won't have existing EDI files from your trading partner, so you'll need to create profiles manually. This is a simple process that only takes a few minutes.
+
+#### Create local profiles
+
+For most use cases, you will only need to set up a local profile once for your company.
+
+To create a local profile:
+
+1. Go to [**Trading partners**](https://www.stedi.com/app/core/partnerships).
+2. Click **Create local profile**.
+
+    - Choose an **ID Qualifier** and **Interchange ID**. These values are used to populate the [ISA header](https://www.stedi.com/edi/x12/segment/ISA) of an EDI file. Your Interchange Qualifier and ID are used by your partner to route EDI files in a similar way to email addresses in an email system. Your trading partner will ask you to provide these values so that they can set you up in their EDI system.
+    - In most industries, you can choose these values yourself, since there is no central authority that registers and validates Interchange IDs. A safe choice for the ID Qualifier is `ZZ`, which is a catch-all code that means "Mutually Defined". For the Interchange ID, you can use your company's name (e.g. `STEDI`) or an identifier that you use internally. It's customary for these values to be all uppercase with no spaces or special characters.
+    - If you are unsure of what to use, or if your trading partner has specific requirements, [reach out to us](https://www.stedi.com/contact) and we can help you choose the right values.
+
+3. Stedi will automatically suggest an internal **Identifier** for your profile. This is never visible to your trading partner and is used for unique identification with your Stedi account only. If the name that's suggested isn't sensible to you, you can change it to anything you wish. You cannot edit the name after the profile has been created.
+4. Click **Add Application ID**. This is used to populate the [GS header](https://www.stedi.com/edi/x12/segment/GS) of an EDI file. Stedi will automatically suggest the same value that you inputted for your Interchange ID, which is the right choice for most use cases. This can be changed at any time, and you can add multiple application IDs if needed, so don't worry about getting it right up front – if the need for multiple application IDs arises in the future, you can add them as-needed. For advanced use cases, you can also override the Application ID on the partnership itself.
+5. Click **Create**.
+
+#### Create partner profiles
+
+You will need to create a partner profile for each of your trading partners.
+
+To create a partner profile:
+
+1. Click **Create partner profile** to create your partner's profile.
+
+    - Your partner will provide you with an **ID Qualifier** and **Interchange ID** to use for their profile. If they haven't already, you should request this from them. If you get stuck or aren't sure what to ask, [reach out to us](https://www.stedi.com/contact) and we can help ensure the profile is set up correctly.
+
+2. Stedi will automatically suggest an internal **Identifier** for the profile. This is never visible to your trading partner and is used for unique identification with your Stedi account only. If the name that's suggested isn't sensible to you, you can change it to anything you wish. You cannot edit the name after the profile has been created.
+
+3. Click **Add Application ID**. This is used to populate the [GS header](https://www.stedi.com/edi/x12/segment/GS) of an EDI file. Stedi will automatically suggest the same value that you inputted for your partner's Interchange ID, which is the right choice for most use cases. Some trading partners use the GS ID to specify a specific department within their business. If your trading partner has asked you to use a specific GS ID (or multiple IDs), you can add them here. This can be changed at any time.
+4. Click **Create**.
+
+#### Create partnerships
+
+You will need to create a partnership for each trading partner relationship.
+
+To create a partnership:
+
+1. Go to [**Trading partners**](https://www.stedi.com/app/core/partnerships).
+2. Click **Create Partnership**.
+3. Select a **Local profile** profile from the list.
+4. Select a **Partner profile** from the list.
+5. Stedi will automatically suggest an internal **Identifier** for the profile. This is never visible to your trading partner and is used for unique identification with your Stedi account only. If the name that's suggested isn't sensible to you, you can change it to anything you wish. You cannot edit the name after the profile has been created.
+6. Click **Create**. You will be brought to a new page where you can define settings for the partnership.
+
+<Tip>
+**Can’t find a profile?** 
+
+If you don’t see a local or partner profile you expect in either list above, make sure you selected the correct type when you created the profile.
+</Tip>
+
+You can view the new profiles and partnership on the [**Trading partners**](https://www.stedi.com/app/core/partnerships) page.
+
+### Auto-configure from EDI files
+
+If you're migrating an existing EDI system to Stedi, you may already have EDI files from your trading partner. The auto-configure option helps you create profiles and partnerships based on sample EDI files.
+
+Stedi extracts information from the file to generate two profiles - one for you and one for your partner – as well as a new partnership between them.
+
+To automatically generate profiles and partnerships from EDI files:
+
+1. Go to the **Profiles** page and click **Auto-configure**.
+2. Upload an EDI file.
+3. Review the profiles to ensure the pre-populated fields are correct. Refer to [Create profiles manually](#create-manually) for field descriptions.
+   > **Important:** Set your company as the **Local** profile and your trading partner as a **Partner** profile.
+4. By default, a partnership will also be created when you click **Create**. To disable the creation of a partnership, toggle the **Create partnership** option to OFF.
+5. Click **Create**. Two profiles and the new partnership are created.
+
+You can view the new profiles and partnership on the [**Trading partners**](https://www.stedi.com/app/core/partnerships) page.
+
+## (Recommended) Enable 997 Functional Acknowledgments
+
+Most trading partners require you to send an [997 Functional Acknowledgment](https://www.stedi.com/edi/x12/transaction-set/997) in response to each inbound EDI file. This confirms that you received the transaction, which helps your trading partner know that everything is working as expected.
+
+Stedi can automatically generate a 997 for each inbound transaction within a partnership and deliver it to a specified [connection](connections). This saves you the hassle of manually generating and sending 997s, and most users should enable this feature.
+
+To enable automatic 997 generation:
+
+1. Go to the partnership.
+2. Click the pencil next to **997 acknowledgments**.
+3. Set the **Enable acknowledgments** toggle to **ON**.
+4. Select an existing **Connection** within the partnership. Generated 997s will be delivered using this connection.
+    - (SFTP and Bucket only) Specify an optional **Subdirectory**. Generated 997s will be delivered to this subdirectory. We don't recommend specifying a subdirectory unless your trading partner has instructed you to do so.
+5. Click **Save**.
+
+997 Functional Acknowledgments will now be generated for every inbound transaction received over a connection within this partnership.
+
+Functionality notes:
+
+- 997s are only generated for successful inbound transactions. If a file fails during validation or processing, a 997 will not be sent until the file is processed successfully.
+- Auto-generation applies to every inbound EDI transaction received over a partnership connection, even if the transaction set has not been explicitly configured as an inbound transaction setting.
+
+Information for advanced EDI users:
+
+- Acknowledgments are generated at the functional group level
+- Generated acknowledgments contain complete ISA and GS envelopes, including control numbers
+- A [`file.failed` event](docs/events-destinations/core-events) is emitted if a file fails to be processed, which can be used to trigger a 997 rejection
+- Per the X12 EDI specification, 997s are never generated in response to inbound acknowledgments.
+
+## Control numbers
+
+Control numbers are used in the `ISA` and `GS`` envelopes of X12 EDI files. They are used to reference EDI files and to detect duplicates and missing data. Control numbers must be unique within a partnership.
+
+Stedi handles control numbers automatically for you. When you create a partnership, Stedi will set the control number counters to `0` for both the Interchange (ISA) and Group (GS) levels. Each time you send an outbound EDI file, Stedi will increment the control numbers to ensure uniqueness.
+
+In rare circumstances, you may need to reset the control numbers for a partnership. For example, if you're migrating from another EDI system, you may need to reset the control numbers to match the last control numbers used in your previous system.
+
+To reset control numbers for outbound documents:
+
+1. Navigate to the selected partnership where you want to adjust the control numbers.
+2. Amend the **Interchange** or **Group** control numbers as needed.
+
+## Next steps
+
+Now that you've created profiles and partnerships, you can configure the details of each partnership in order to start processing EDI files.
+
+### Configure connections
+
+Within each partnership, you can create one or more SFTP, FTP, FTPS, or AS2 connections in order to exchange files with your trading partner. Visit [connections](/core/configuration/connections) for details.
+
+### Configure transaction settings
+
+Within each partnership, you can define the EDI transaction sets you plan to exchange with trading partners. Visit [transaction settings](/core/configuration/transaction-settings) for details.

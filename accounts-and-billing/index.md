@@ -1,0 +1,50 @@
+---
+title: Accounts and billing
+slug: /accounts-and-billing
+description: |
+  How to manage Stedi accounts, members, billing, and payments.
+---
+
+## Accounts and members
+
+A Stedi account is a container for all of your Stedi activity and resources. To create a Stedi account, you must first [sign up](https://www.stedi.com/signup) for a user account and then you can create an account in the dashboard. You'll need to [choose a plan](https://www.stedi.com/pricing) when to create an account.
+
+Every account has a unique ID which can be found in the [Account profile](https://www.stedi.com/app/settings/account-details). This ID is used to identify the account in the API and in the dashboard. It is also used in dashboard URLs, where it appears in the `account` URL parameter.
+
+Accounts can have unlimited members. For accounts on the Unlimited or Cloud plans, every member of the account is an admin, which means they have full access to all data and products via the dashboard, can provision API keys, can manage other members, and can manage billing. For accounts on the Enterprise plan, members can be assigned different roles with different permissions.
+
+It's possible to have multiple accounts, though using one account is recommended for most customers. If you need additional accounts, you can reach out to [support](https://www.stedi.com/contact) and we'll enable them for you. Note that accounts cannot be linked – all settings and membership are specific to a given account.
+
+You cannot delete an account via the dashboard or the API. If you need to delete an account, first delete all data and resources in the account then [contact support](https://www.stedi.com/contact).
+
+### Inviting members
+
+Members can be added in [member settings](https://www.stedi.com/app/settings/members). Each time you invite a member, they will receive an email with your invitation. Invitations do not expire, but can be revoked by any account admin at any time before acceptance.
+
+### Managing members
+
+Any account admin can remove other members from an account. Those users will still retain their Stedi user credentials and access to other accounts of which they're a member.
+
+## Billing and payment
+
+Each account will be invoiced monthly based on [your plan](https://www.stedi.com/pricing). To add or edit your payment details, you can navigate to the [Payment methods](https://www.stedi.com/app/billing/payment-methods) tab in your account's billing settings. Charges will be billed to the credit card on file.
+
+If you're on a legacy usage-based plan, you will be billed monthly based on your usage. Within the current billing cycle, you can navigate to [Billing page](https://www.stedi.com/app/billing/) in your account to see your month-to-date usage and accrued spend for each product.
+
+## Pricing
+
+Pricing for our current plans are available on our [pricing page](https://www.stedi.com/pricing). Pricing for legacy usage-based products can be found within each [product's documentation](/docs/legacy/).
+
+## Usage limits
+
+To make things simple, [our plans](https://www.stedi.com/pricing) are flat-rate with no usage-based costs. There are certain usage limits to prevent abuse.
+
+The vast majority of use cases will never come close to hitting these limits. If you think your use case might exceed these limits, please [contact us](https://www.stedi.com/contact) – we would be very interested to learn about your use case and work with you to find a solution. Our platform can handle virtually unlimited scale.
+
+|             | Unlimited | Unlimited + Cloud  | Enterprise |
+| ----------- | --------- | ------------------ | ---------- |
+| Data egress | 1 TB / mo | 2 TB / mo          | Contact us |
+| Storage     | 4 TB      | 10 TB              | Contact us |
+| Compute     | N/A       | 2500 GB-hours / mo | Contact us |
+
+`Data Egress` includes any data retrieved from Stedi (for example, via API) or sent by Stedi to an external system (for example, via an [event destination](/docs/events/destinations).

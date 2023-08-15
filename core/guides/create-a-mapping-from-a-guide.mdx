@@ -1,0 +1,33 @@
+---
+title: "Create Stedi Mappings From a Guide"
+sidebarTitle: "Create Mappings From Guides"
+slug: core/guides/create-a-mapping-from-a-stedi-guide
+description: "You can choose to base the source or target of a mapping on a guide. Doing so will initialize the mapping document with fields from the guide."
+searchable: true
+---
+
+<Tip>
+**Stedi Cloud required:** 
+
+Mappings are part of the Stedi Cloud platform and require the **Unlimited + Cloud** monthly plan. Visit [pricing](https://www.stedi.com/pricing) for details.
+</Tip>
+
+[Stedi Mappings](/cloud/mappings) let you transform JSON data from one shape to another. They are useful when you need to transform JSON data between a custom shape for your internal systems and EDI-like JSON for [EDI Translate](/legacy/edi-translate).
+
+Mappings require that you define a source JSON schema that represents incoming data and a target JSON schema that represents outgoing data. You can choose to base the source or target of a mapping on a guide. When you create a mapping from a guide, the mapping document is prepopulated with fields from the guide.
+
+### Create a mapping based on a Stedi guide
+
+To create a new mapping based on a Stedi guide:
+
+1. Go to the guide builder for the guide you want to use.
+1. Click **Actions** and select **Create mapping**.
+1. Choose a use case: **Reading EDI** or **Writing EDI**.
+1. Enter a **Name** and choose the **Sample** file the mappings UI will use to generate the schema. If there is no sample available, the guide builder auto-generates a sample by default.
+1. Click **Create new mapping**.
+
+The mappings UI opens with either the **Source** or **Target** schema pre-filled according to the use case and guide you chose. the
+
+### Connected guides
+
+When you generate a mapping source or target schema from a Stedi guide, the guide is automatically connected to the mapping. You can pull published changes from the guide into the mapping to automatically update the schema. For more details, visit the [Mappings documentation](/cloud/mappings/manage-mappings/ui-guide#connect-a-stedi-guide).
