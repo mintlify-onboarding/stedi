@@ -10,6 +10,7 @@
       "light": "#47AEA3",
       "dark": "#297A71"
     },
+    "backgroundImage": "/home-hero-light-right.svg",
     "api": {
       "baseUrl": "https://apikeys.us.stedi.com/2022-01-19"
     },
